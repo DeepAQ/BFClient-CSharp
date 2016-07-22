@@ -8,7 +8,7 @@ namespace BFClient_CSharp.View
     public partial class MainForm : Form
     {
         private readonly ArrayList _changeList = new ArrayList();
-        private int _changeIndex = 0;
+        private int _changeIndex;
         private Thread _saveChangeThread;
 
         public MainForm()
