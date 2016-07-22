@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using BFClient_CSharp.UI;
+using BFClient_CSharp.View;
 
 namespace BFClient_CSharp
 {
@@ -14,7 +14,7 @@ namespace BFClient_CSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainUI());
+            Application.Run(new MainForm());
         }
     }
 }
