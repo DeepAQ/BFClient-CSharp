@@ -29,6 +29,30 @@ namespace BFClient_CSharp.Util
             }
         }
 
+        public static void SaveLoginInfo(string username, string password)
+        {
+            Properties.Settings.Default.host = Host;
+            Properties.Settings.Default.username = username;
+            Properties.Settings.Default.password = password;
+        }
+
+        public static bool TryAutoLogin()
+        {
+            Host = Properties.Settings.Default.host;
+            var username = Properties.Settings.Default.username;
+            var password = Properties.Settings.Default.password;
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty((password))) return false;
+            try
+            {
+                Login(username, password);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public static void Logout()
         {
             Username = "";
