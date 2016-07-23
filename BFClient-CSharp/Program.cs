@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using BFClient_CSharp.Util;
 using BFClient_CSharp.View;
 
 namespace BFClient_CSharp
@@ -14,7 +15,10 @@ namespace BFClient_CSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            if (SessionMgr.TryAutoLogin())
+                Application.Run(new MainForm());
+            else
+                Application.Run(new LoginForm());
         }
     }
 }

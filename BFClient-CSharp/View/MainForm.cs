@@ -63,5 +63,10 @@ namespace BFClient_CSharp.View
             _changeIndex++;
             textCode.Text = _changeList[_changeIndex] as string;
         }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
