@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Threading;
 using System.Windows.Forms;
+using BFClient_CSharp.Util;
 
 namespace BFClient_CSharp.View
 {
@@ -14,6 +15,7 @@ namespace BFClient_CSharp.View
         public MainForm()
         {
             InitializeComponent();
+            userToolStripMenuItem.Text = @"Logged in as : " + SessionMgr.Username;
             _changeList.Add("");
         }
 

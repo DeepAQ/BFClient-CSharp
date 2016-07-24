@@ -15,6 +15,7 @@ namespace BFClient_CSharp.View
         public LoginForm()
         {
             InitializeComponent();
+            textHost.Text = Properties.Settings.Default.host;
             textUsername.Focus();
         }
 

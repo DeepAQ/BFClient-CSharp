@@ -34,6 +34,7 @@ namespace BFClient_CSharp.Util
             Properties.Settings.Default.host = Host;
             Properties.Settings.Default.username = username;
             Properties.Settings.Default.password = password;
+            Properties.Settings.Default.Save();
         }
 
         public static bool TryAutoLogin()
