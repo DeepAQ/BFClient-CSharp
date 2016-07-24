@@ -16,7 +16,7 @@ namespace BFClient_CSharp.View
         private string _fileName = "";
         private string _fileVersion = "";
         private string _originalCode = "";
-        private bool _modified = false;
+        private bool _modified;
 
         public MainForm()
         {
@@ -176,6 +176,7 @@ namespace BFClient_CSharp.View
             textCode.Paste();
         }
 
+        // Run
         private void runToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
