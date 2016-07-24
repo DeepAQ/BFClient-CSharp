@@ -26,6 +26,16 @@ namespace BFClient_CSharp.View
             _changeList.Add("");
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !CheckSaved();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void textCode_TextChanged(object sender, EventArgs e)
         {
             if (_saveChangeThread != null && _saveChangeThread.IsAlive)
@@ -151,14 +161,32 @@ namespace BFClient_CSharp.View
             textCode.Text = _changeList[_changeIndex] as string;
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            e.Cancel = !CheckSaved();
+            textCode.Cut();
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            textCode.Copy();
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textCode.Paste();
+        }
+
+        private void runToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = SessionMgr.Execute(textCode.Text, textInput.Text);
+                textOutput.Text = result[0] + "\n====================\nExecution success, used " + result[1] + "ms";
+            }
+            catch (Exception ex)
+            {
+                textOutput.Text = "Execution error:\n" + ex.Message;
+            }
         }
     }
 }
