@@ -5,7 +5,7 @@
     <Setting Name="username" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="password" Type="System.String" Scope="User">
+    <Setting Name="pwdhash" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="host" Type="System.String" Scope="User">

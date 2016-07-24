@@ -18,13 +18,18 @@ namespace BFClient_CSharp.Util
         // User login & logout
         public static void Login(string username, string password)
         {
-            var serverResp = GetUrl($"{Host}/user/login?username={username}&pwdhash={Hash(password)}");
+            LoginWithPwdhash(username, Hash(password));
+        }
+
+        public static void LoginWithPwdhash(string username, string pwdhash)
+        {
+            var serverResp = GetUrl($"{Host}/user/login?username={username}&pwdhash={pwdhash}");
             var jsonObj = JObject.Parse(serverResp);
-            if ((int) jsonObj["result"] < 0)
-                throw new Exception((string) jsonObj["errmsg"]);
+            if ((int)jsonObj["result"] < 0)
+                throw new Exception((string)jsonObj["errmsg"]);
             else
             {
-                _sessionId = (string) jsonObj["sessid"];
+                _sessionId = (string)jsonObj["sessid"];
                 Username = username;
             }
         }
@@ -33,7 +38,7 @@ namespace BFClient_CSharp.Util
         {
             Properties.Settings.Default.host = Host;
             Properties.Settings.Default.username = username;
-            Properties.Settings.Default.password = password;
+            Properties.Settings.Default.pwdhash = Hash(password);
             Properties.Settings.Default.Save();
         }
 
@@ -41,11 +46,11 @@ namespace BFClient_CSharp.Util
         {
             Host = Properties.Settings.Default.host;
             var username = Properties.Settings.Default.username;
-            var password = Properties.Settings.Default.password;
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty((password))) return false;
+            var pwdhash = Properties.Settings.Default.pwdhash;
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty((pwdhash))) return false;
             try
             {
-                Login(username, password);
+                LoginWithPwdhash(username, pwdhash);
                 return true;
             }
             catch (Exception)

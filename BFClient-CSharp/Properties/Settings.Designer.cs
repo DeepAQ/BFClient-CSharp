@@ -38,12 +38,12 @@ namespace BFClient_CSharp.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string password {
+        public string pwdhash {
             get {
-                return ((string)(this["password"]));
+                return ((string)(this["pwdhash"]));
             }
             set {
-                this["password"] = value;
+                this["pwdhash"] = value;
             }
         }
         
