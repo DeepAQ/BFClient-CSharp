@@ -26,11 +26,6 @@ namespace BFClient_CSharp.View
             _changeList.Add("");
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void textCode_TextChanged(object sender, EventArgs e)
         {
             if (_saveChangeThread != null && _saveChangeThread.IsAlive)
@@ -69,10 +64,32 @@ namespace BFClient_CSharp.View
             this.Text = title;
         }
 
+        private bool CheckSaved()
+        {
+            if (!_modified) return true;
+            var result = MessageBox.Show(@"File not saved, save it?", @"Confirmation", MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Information);
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    saveToolStripMenuItem.PerformClick();
+                    return false;
+                case DialogResult.No:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         // File
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (!CheckSaved()) return;
+            textCode.Clear();
+            _fileName = "";
+            _fileVersion = "";
+            _modified = false;
+            UpdateTitle();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -116,7 +133,7 @@ namespace BFClient_CSharp.View
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         // Edit
@@ -132,6 +149,16 @@ namespace BFClient_CSharp.View
             if (_changeIndex >= _changeList.Count - 1) return;
             _changeIndex++;
             textCode.Text = _changeList[_changeIndex] as string;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !CheckSaved();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
