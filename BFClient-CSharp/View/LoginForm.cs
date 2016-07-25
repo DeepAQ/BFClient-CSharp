@@ -34,5 +34,10 @@ namespace BFClient_CSharp.View
                 MessageBox.Show(ex.Message, @"Login failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

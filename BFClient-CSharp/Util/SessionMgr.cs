@@ -63,6 +63,9 @@ namespace BFClient_CSharp.Util
         {
             Username = "";
             _sessionId = "";
+            Properties.Settings.Default.username = "";
+            Properties.Settings.Default.pwdhash = "";
+            Properties.Settings.Default.Save();
         }
 
         public static void ChangePassword(string oldPassword, string newPassword)

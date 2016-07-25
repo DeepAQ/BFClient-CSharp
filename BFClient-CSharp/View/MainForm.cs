@@ -193,7 +193,16 @@ namespace BFClient_CSharp.View
         // Help
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new AboutBox().Show();
+            new AboutBox().ShowDialog();
+        }
+
+        // User
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!CheckSaved()) return;
+            SessionMgr.Logout();
+            Hide();
+            new LoginForm().Show();
         }
     }
 }
