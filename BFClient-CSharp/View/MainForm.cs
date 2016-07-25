@@ -189,5 +189,11 @@ namespace BFClient_CSharp.View
                 textOutput.Text = "Execution error:\n" + ex.Message;
             }
         }
+
+        // Help
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new AboutBox().Show();
+        }
     }
 }

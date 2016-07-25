@@ -14,7 +14,6 @@ namespace BFClient_CSharp.View
             this.labelVersion.Text = $"版本 {AssemblyVersion}";
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
         }
 
         #region 程序集特性访问器
@@ -96,5 +95,10 @@ namespace BFClient_CSharp.View
             }
         }
         #endregion
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
