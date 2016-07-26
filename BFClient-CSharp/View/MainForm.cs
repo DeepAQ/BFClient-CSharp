@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.IO;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using BFClient_CSharp.Util;
@@ -138,7 +140,11 @@ namespace BFClient_CSharp.View
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var dialog = new SaveFileDialog();
+            dialog.Filter = @"BrainFuck source code|.bf";
+            dialog.ShowDialog();
+            if (string.IsNullOrEmpty(dialog.FileName)) return;
+            File.WriteAllText(dialog.FileName, textCode.Text, Encoding.UTF8);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
