@@ -226,7 +226,7 @@
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(211, 30);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(162, 30);
             this.aboutToolStripMenuItem1.Text = "About…";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
@@ -244,6 +244,7 @@
             this.refreshSessionToolStripMenuItem.Name = "refreshSessionToolStripMenuItem";
             this.refreshSessionToolStripMenuItem.Size = new System.Drawing.Size(223, 30);
             this.refreshSessionToolStripMenuItem.Text = "Refresh session";
+            this.refreshSessionToolStripMenuItem.Click += new System.EventHandler(this.refreshSessionToolStripMenuItem_Click);
             // 
             // logoutToolStripMenuItem
             // 

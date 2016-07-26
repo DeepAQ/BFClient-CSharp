@@ -13,7 +13,8 @@ namespace BFClient_CSharp.Util
     {
         public static string Host = "http://localhost:8081";
         public static string Username = "";
-        static string _sessionId = "";
+        private static string _pwdhash = "";
+        private static string _sessionId = "";
 
         // User login & logout
         public static void Login(string username, string password)
@@ -31,6 +32,7 @@ namespace BFClient_CSharp.Util
             {
                 _sessionId = (string)jsonObj["sessid"];
                 Username = username;
+                _pwdhash = pwdhash;
             }
         }
 
@@ -57,6 +59,11 @@ namespace BFClient_CSharp.Util
             {
                 return false;
             }
+        }
+
+        public static void RefreshSession()
+        {
+            LoginWithPwdhash(Username, _pwdhash);
         }
 
         public static void Logout()

@@ -197,6 +197,19 @@ namespace BFClient_CSharp.View
         }
 
         // User
+        private void refreshSessionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SessionMgr.RefreshSession();
+                MessageBox.Show(@"Refresh success", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!CheckSaved()) return;
