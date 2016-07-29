@@ -188,11 +188,11 @@ namespace BFClient_CSharp.View
             try
             {
                 var result = SessionMgr.Execute(textCode.Text, textInput.Text);
-                textOutput.Text = result[0] + "\n====================\nExecution success, used " + result[1] + "ms";
+                textOutput.Text = result[0] + "\r\n====================\r\nExecution success, used " + result[1] + "ms";
             }
             catch (Exception ex)
             {
-                textOutput.Text = "Execution error:\n" + ex.Message;
+                textOutput.Text = "Execution error:\r\n" + ex.Message;
             }
         }
 
