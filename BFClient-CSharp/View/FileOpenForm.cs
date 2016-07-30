@@ -10,7 +10,7 @@ namespace BFClient_CSharp.View
     public partial class FileOpenForm : Form
     {
         private readonly Dictionary<string, ArrayList> _fileversions = new Dictionary<string, ArrayList>();
-        private MainForm _mainForm;
+        private readonly MainForm _mainForm;
 
         public FileOpenForm(MainForm main)
         {
