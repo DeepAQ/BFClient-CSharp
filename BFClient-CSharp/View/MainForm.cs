@@ -15,9 +15,9 @@ namespace BFClient_CSharp.View
         private int _changeIndex;
         private Thread _saveChangeThread;
 
-        private string _fileName = "";
-        private string _fileVersion = "";
-        private string _originalCode = "";
+        internal string FileName = "";
+        internal string FileVersion = "";
+        internal string OriginalCode = "";
         private bool _modified;
 
         public MainForm()
@@ -44,7 +44,7 @@ namespace BFClient_CSharp.View
                 _saveChangeThread.Interrupt();
             _saveChangeThread = new Thread(SaveChange);
             _saveChangeThread.Start();
-            _modified = !textCode.Text.Equals(_originalCode);
+            _modified = !textCode.Text.Equals(OriginalCode);
             UpdateTitle();
         }
 
@@ -71,7 +71,7 @@ namespace BFClient_CSharp.View
         private void UpdateTitle()
         {
             var modFlag = _modified ? "* " : "";
-            var title = string.IsNullOrEmpty(_fileName) ? $"{modFlag}Untitled.bf" : $"{modFlag}{_fileName}.bf ({_fileVersion})";
+            var title = string.IsNullOrEmpty(FileName) ? $"{modFlag}Untitled.bf" : $"{modFlag}{FileName}.bf ({FileVersion})";
             title += @" - BrainFuck IDE";
             this.Text = title;
         }
@@ -94,32 +94,34 @@ namespace BFClient_CSharp.View
         }
 
         // File
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        public void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!CheckSaved()) return;
             textCode.Clear();
-            _fileName = "";
-            _fileVersion = "";
+            FileName = "";
+            FileVersion = "";
+            OriginalCode = "";
             _modified = false;
             UpdateTitle();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (!CheckSaved()) return;
+            new FileOpenForm(this).ShowDialog();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!_modified) return;
-            if (string.IsNullOrEmpty(_fileName))
+            if (string.IsNullOrEmpty(FileName))
                 saveAsToolStripMenuItem.PerformClick();
             else
                 try
                 {
-                    var newVersion = SessionMgr.SaveFile(textCode.Text, _fileName);
-                    _fileVersion = newVersion;
-                    _originalCode = textCode.Text;
+                    var newVersion = SessionMgr.SaveFile(textCode.Text, FileName);
+                    FileVersion = newVersion;
+                    OriginalCode = textCode.Text;
                     _modified = false;
                     UpdateTitle();
                 }
@@ -133,7 +135,7 @@ namespace BFClient_CSharp.View
         {
             var input = Interaction.InputBox("Filename :", "Save as");
             if (string.IsNullOrEmpty(input)) return;
-            _fileName = input;
+            FileName = input;
             _modified = true;
             saveToolStripMenuItem.PerformClick();
         }

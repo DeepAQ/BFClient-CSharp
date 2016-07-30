@@ -29,26 +29,41 @@
         private void InitializeComponent()
         {
             this.listFile = new System.Windows.Forms.ListView();
+            this.columnFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnLatestVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listVersion = new System.Windows.Forms.ListView();
+            this.columnVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.columnFilename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnLatestVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listFile
             // 
+            this.listFile.AllowColumnReorder = true;
             this.listFile.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnFilename,
             this.columnLatestVersion});
             this.listFile.Location = new System.Drawing.Point(20, 30);
             this.listFile.Name = "listFile";
             this.listFile.Size = new System.Drawing.Size(270, 360);
+            this.listFile.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listFile.TabIndex = 0;
             this.listFile.UseCompatibleStateImageBehavior = false;
+            this.listFile.View = System.Windows.Forms.View.Details;
+            this.listFile.SelectedIndexChanged += new System.EventHandler(this.listFile_SelectedIndexChanged);
+            this.listFile.DoubleClick += new System.EventHandler(this.listFile_DoubleClick);
+            // 
+            // columnFilename
+            // 
+            this.columnFilename.Text = "File Name";
+            this.columnFilename.Width = 150;
+            // 
+            // columnLatestVersion
+            // 
+            this.columnLatestVersion.Text = "Latest Version";
+            this.columnLatestVersion.Width = 100;
             // 
             // listVersion
             // 
@@ -57,8 +72,17 @@
             this.listVersion.Location = new System.Drawing.Point(300, 30);
             this.listVersion.Name = "listVersion";
             this.listVersion.Size = new System.Drawing.Size(170, 360);
+            this.listVersion.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listVersion.TabIndex = 1;
             this.listVersion.UseCompatibleStateImageBehavior = false;
+            this.listVersion.View = System.Windows.Forms.View.Details;
+            this.listVersion.SelectedIndexChanged += new System.EventHandler(this.listVersion_SelectedIndexChanged);
+            this.listVersion.DoubleClick += new System.EventHandler(this.listVersion_DoubleClick);
+            // 
+            // columnVersion
+            // 
+            this.columnVersion.Text = "Version";
+            this.columnVersion.Width = 150;
             // 
             // label1
             // 
@@ -97,21 +121,6 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // columnFilename
-            // 
-            this.columnFilename.Text = "File Name";
-            this.columnFilename.Width = 150;
-            // 
-            // columnLatestVersion
-            // 
-            this.columnLatestVersion.Text = "Latest Version";
-            this.columnLatestVersion.Width = 100;
-            // 
-            // columnVersion
-            // 
-            this.columnVersion.Text = "Version";
-            this.columnVersion.Width = 150;
             // 
             // FileOpenForm
             // 

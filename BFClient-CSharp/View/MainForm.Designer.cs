@@ -372,7 +372,7 @@
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.TextBox textCode;
+        public System.Windows.Forms.TextBox textCode;
         private System.Windows.Forms.TextBox textInput;
         private System.Windows.Forms.TextBox textOutput;
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem1;
