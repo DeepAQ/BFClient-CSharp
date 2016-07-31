@@ -1,6 +1,6 @@
 ﻿namespace BFClient_CSharp.View
 {
-    partial class LoginForm
+    internal partial class LoginForm
     {
         /// <summary>
         /// Required designer variable.

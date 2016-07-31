@@ -1,6 +1,6 @@
 ﻿namespace BFClient_CSharp.View
 {
-    partial class MainForm
+    internal partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。

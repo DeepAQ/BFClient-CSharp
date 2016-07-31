@@ -2,14 +2,15 @@
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
+using BFClient_CSharp.Properties;
 using Newtonsoft.Json.Linq;
 
 namespace BFClient_CSharp.Util
 {
-    static class SessionMgr
+    internal static class SessionMgr
     {
         public static string Host = "http://localhost:8081";
         public static string Username = "";
@@ -26,30 +27,27 @@ namespace BFClient_CSharp.Util
         {
             var serverResp = GetUrl($"{Host}/user/login?username={username}&pwdhash={pwdhash}");
             var jsonObj = JObject.Parse(serverResp);
-            if ((int)jsonObj["result"] < 0)
-                throw new Exception((string)jsonObj["errmsg"]);
-            else
-            {
-                _sessionId = (string)jsonObj["sessid"];
-                Username = username;
-                _pwdhash = pwdhash;
-            }
+            if ((int) jsonObj["result"] < 0)
+                throw new Exception((string) jsonObj["errmsg"]);
+            _sessionId = (string) jsonObj["sessid"];
+            Username = username;
+            _pwdhash = pwdhash;
         }
 
         public static void SaveLoginInfo(string username, string password)
         {
-            Properties.Settings.Default.host = Host;
-            Properties.Settings.Default.username = username;
-            Properties.Settings.Default.pwdhash = Hash(password);
-            Properties.Settings.Default.Save();
+            Settings.Default.host = Host;
+            Settings.Default.username = username;
+            Settings.Default.pwdhash = Hash(password);
+            Settings.Default.Save();
         }
 
         public static bool TryAutoLogin()
         {
-            Host = Properties.Settings.Default.host;
-            var username = Properties.Settings.Default.username;
-            var pwdhash = Properties.Settings.Default.pwdhash;
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty((pwdhash))) return false;
+            Host = Settings.Default.host;
+            var username = Settings.Default.username;
+            var pwdhash = Settings.Default.pwdhash;
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(pwdhash)) return false;
             try
             {
                 LoginWithPwdhash(username, pwdhash);
@@ -70,17 +68,19 @@ namespace BFClient_CSharp.Util
         {
             Username = "";
             _sessionId = "";
-            Properties.Settings.Default.username = "";
-            Properties.Settings.Default.pwdhash = "";
-            Properties.Settings.Default.Save();
+            Settings.Default.username = "";
+            Settings.Default.pwdhash = "";
+            Settings.Default.Save();
         }
 
         public static void ChangePassword(string oldPassword, string newPassword)
         {
-            var serverResp = GetUrl($"{Host}/user/changepassword?sessid={_sessionId}&oldpwdhash={Hash(oldPassword)}&newpwdhash={Hash(newPassword)}");
+            var serverResp =
+                GetUrl(
+                    $"{Host}/user/changepassword?sessid={_sessionId}&oldpwdhash={Hash(oldPassword)}&newpwdhash={Hash(newPassword)}");
             var jsonObj = JObject.Parse(serverResp);
             if ((int) jsonObj["result"] < 0)
-                throw new Exception((string)jsonObj["errmsg"]);
+                throw new Exception((string) jsonObj["errmsg"]);
         }
 
         // File I/O
@@ -91,9 +91,8 @@ namespace BFClient_CSharp.Util
             var serverResp = GetUrl($"{Host}/io/open?sessid={_sessionId}&filename={filename}&version={version}");
             var jsonObj = JObject.Parse(serverResp);
             if ((int) jsonObj["result"] < 0)
-                throw new Exception((string)jsonObj["errmsg"]);
-            else
-                return (string) jsonObj["code"];
+                throw new Exception((string) jsonObj["errmsg"]);
+            return (string) jsonObj["code"];
         }
 
         public static string SaveFile(string code, string filename)
@@ -103,8 +102,7 @@ namespace BFClient_CSharp.Util
             var jsonObj = JObject.Parse(serverResp);
             if ((int) jsonObj["result"] < 0)
                 throw new Exception((string) jsonObj["errmsg"]);
-            else
-                return (string) jsonObj["version"];
+            return (string) jsonObj["version"];
         }
 
         public static string[] Execute(string code, string input)
@@ -115,8 +113,7 @@ namespace BFClient_CSharp.Util
             var jsonObj = JObject.Parse(serverResp);
             if ((int) jsonObj["result"] < 0)
                 throw new Exception((string) jsonObj["errmsg"]);
-            else
-                return new[] {(string) jsonObj["output"], (string) jsonObj["time"]};
+            return new[] {(string) jsonObj["output"], (string) jsonObj["time"]};
         }
 
         // Network functions
@@ -132,6 +129,6 @@ namespace BFClient_CSharp.Util
             string.Join("", new SHA1CryptoServiceProvider()
                 .ComputeHash(Encoding.UTF8.GetBytes(str))
                 .Select(b => b.ToString("x2")).ToArray()
-            );
+                );
     }
 }

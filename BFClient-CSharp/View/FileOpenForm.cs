@@ -7,14 +7,14 @@ using Newtonsoft.Json.Linq;
 
 namespace BFClient_CSharp.View
 {
-    public partial class FileOpenForm : Form
+    internal partial class FileOpenForm : Form
     {
         private readonly Dictionary<string, ArrayList> _fileversions = new Dictionary<string, ArrayList>();
         private readonly MainForm _mainForm;
 
         public FileOpenForm(MainForm main)
         {
-            this._mainForm = main;
+            _mainForm = main;
             InitializeComponent();
         }
 
@@ -55,12 +55,12 @@ namespace BFClient_CSharp.View
             _mainForm.FileVersion = version;
             _mainForm.OriginalCode = code;
             _mainForm.textCode.Text = code;
-            this.Close();
+            Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void listFile_SelectedIndexChanged(object sender, EventArgs e)

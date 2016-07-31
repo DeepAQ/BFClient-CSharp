@@ -1,6 +1,6 @@
 ﻿namespace BFClient_CSharp.View
 {
-    partial class FileOpenForm
+    internal partial class FileOpenForm
     {
         /// <summary>
         /// Required designer variable.

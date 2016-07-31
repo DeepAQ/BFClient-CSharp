@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
+using BFClient_CSharp.Properties;
 using BFClient_CSharp.Util;
 
 namespace BFClient_CSharp.View
 {
-    public partial class LoginForm : Form
+    internal partial class LoginForm : Form
     {
         public LoginForm()
         {
             InitializeComponent();
-            textHost.Text = Properties.Settings.Default.host;
+            textHost.Text = Settings.Default.host;
             textUsername.Focus();
         }
 

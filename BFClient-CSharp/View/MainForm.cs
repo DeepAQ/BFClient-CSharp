@@ -9,16 +9,16 @@ using Microsoft.VisualBasic;
 
 namespace BFClient_CSharp.View
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
         private readonly ArrayList _changeList = new ArrayList();
         private int _changeIndex;
+        private bool _modified;
         private Thread _saveChangeThread;
 
         internal string FileName = "";
         internal string FileVersion = "";
         internal string OriginalCode = "";
-        private bool _modified;
 
         public MainForm()
         {
@@ -71,9 +71,11 @@ namespace BFClient_CSharp.View
         private void UpdateTitle()
         {
             var modFlag = _modified ? "* " : "";
-            var title = string.IsNullOrEmpty(FileName) ? $"{modFlag}Untitled.bf" : $"{modFlag}{FileName}.bf ({FileVersion})";
+            var title = string.IsNullOrEmpty(FileName)
+                ? $"{modFlag}Untitled.bf"
+                : $"{modFlag}{FileName}.bf ({FileVersion})";
             title += @" - BrainFuck IDE";
-            this.Text = title;
+            Text = title;
         }
 
         private bool CheckSaved()
@@ -150,7 +152,7 @@ namespace BFClient_CSharp.View
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         // Edit
